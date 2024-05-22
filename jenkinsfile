@@ -1,5 +1,3 @@
-
-
 pipeline {
     agent any
     tools {
@@ -9,17 +7,18 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/RokeshN/Nodejs.git'
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/RokeshN/Nodejs-app.git'
+            }
+        }
+    
+  stage('Install Dependencies') {
+            steps {
+                // Install Node.js dependencies
+                sh 'npm install'
             }
         }
         
-        stage('Install dependencies') {
-            steps {
-                sh "npm install"
-            }
-        }
-
-     stage('docker build & push') {
+   stage('docker build & push') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
@@ -29,8 +28,8 @@ pipeline {
                     }
                 }
             }
-        }
-       stage('docker deployment') {
+   }
+     stage('docker deployment') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
