@@ -24,7 +24,7 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
                         sh 'docker build -t ndjsimage .'
-                        sh 'docker tag newimage rokesh3333/myrepo:${BUILD_NUMBER}'
+                        sh 'docker tag ndjsimage rokesh3333/myrepo:${BUILD_NUMBER}'
                         sh 'docker push rokesh3333/myrepo:${BUILD_NUMBER}'
                     }
                 }
