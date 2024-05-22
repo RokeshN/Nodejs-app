@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    environment {
+        NODEJS_HOME = tool name: 'NodeJS_22.2.0', type: 'NodeJS'
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
+    }
+
+    stages {
+        stage('SCM Checkout') {
+            steps {
+                // Checkout source code from SCM
+                git branch: 'main', url: 'https://github.com/RokeshN/Nodejs-app.git'
+            }
+        }
+}
