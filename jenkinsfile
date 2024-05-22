@@ -30,3 +30,14 @@ pipeline {
                 }
             }
         }
+       stage('docker deployment') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh 'docker run -d --name nodejsapplication -p 8080:3000 rokesh3333/myrepo:${BUILD_NUMBER}'
+                    }
+                }
+            }
+        }
+    }
+}
