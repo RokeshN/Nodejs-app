@@ -18,3 +18,14 @@ pipeline {
                 sh "npm install"
             }
         }
+      stage('docker build & push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh 'docker build -t newimage .'
+                        sh 'docker tag newimage kpselvaperiyasamy/nodejsassesment:${BUILD_NUMBER}'
+                        sh 'docker push kpselvaperiyasamy/nodejsassesment:${BUILD_NUMBER}'
+                    }
+                }
+            }
+        }
